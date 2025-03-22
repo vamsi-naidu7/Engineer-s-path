@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Compass - Your Career Development Guide</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #06b6d4;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9fafb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 7rem auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 0 4rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-500);
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .grid-item {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .grid-item h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grid-item ul {
+            margin-left: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .grid-item ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-indicator {
+            width: 100%;
+            height: 8px;
+            background-color: var(--gray-200);
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        .challenge-tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .basic {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .intermediate {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .advanced {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .resource-link {
+            display: block;
+            margin-top: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .resource-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-500);
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+        }
+
+        .accordion {
+            margin-top: 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            padding: 1rem;
+            background-color: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--gray-100);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1rem;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+            padding: 1rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 3rem 0;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.25rem;
+            top: 0.25rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            border: 3px solid #fff;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: #fff;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-newsletter input {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.25rem;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--gray-600);
+            color: var(--gray-400);
+        }
+
+        /* Mobile menu */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gray-600);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Progress cards */
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--gray-500);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: #fff;
+                padding: 1rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--gray-600);
+            cursor: pointer;
+            font-size: 1.25rem;
+            margin-left: 1rem;
+        }
+
+        /* Dark theme */
+        body.dark-theme {
+            background-color: #121212;
+            color: #f3f4f6;
+        }
+
+        body.dark-theme header {
+            background-color: #1f2937;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme .logo {
+            color: var(--secondary);
+        }
+
+        body.dark-theme .logo span {
+            color: var(--primary);
+        }
+
+        body.dark-theme .nav-links a {
+            color: var(--gray-300);
+        }
+
+        body.dark-theme .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        body.dark-theme .grid-item,
+        body.dark-theme .stat-card,
+        body.dark-theme .accordion-header,
+        body.dark-theme .modal-content {
+            background-color: #1f2937;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme .accordion-header:hover {
+            background-color: #2d3748;
+        }
+
+        body.dark-theme .accordion-item {
+            border-color: #2d3748;
+        }
+
+        body.dark-theme .progress-indicator {
+            background-color: #2d3748;
+        }
+
+        body.dark-theme .theme-toggle,
+        body.dark-theme .mobile-menu-button {
+            color: var(--gray-300);
+        }
+
+        body.dark-theme .close-modal {
+            color: var(--gray-300);
+        }
+
+        body.dark-theme .close-modal:hover {
+            color: var(--danger);
+        }
+
+        /* Loading animation */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--gray-200);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Search bar */
+        .search-container {
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        body.dark-theme .search-bar {
+            background-color: #2d3748;
+            border-color: #4b5563;
+            color: var(--gray-100);
+        }
+
+        body.dark-theme .search-bar:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            
+            <a href="#" class="logo"><img src="./WhatsApp_Image_2025-02-18_at_7.40.08_AM-removebg-preview.png" width="70" height="70"/>Elevate<span>12</span></a>
+            <div class="nav-links">
+                <a href="#roadmaps">Roadmaps</a>
+                <a href="#resources">Resources</a>
+                <a href="#skills">Skills</a>
+                <a href="#community">Community</a>
+                <a href="#about">About</a>
+            </div>
+            <div>
+                <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                <button class="mobile-menu-button" aria-label="Toggle menu">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <h1>Navigate Your Career Journey</h1>
+            <p>A structured, step-by-step approach to career development with curated resources, roadmaps, and community support.</p>
+            <div class="hero-buttons">
+                <a href="#roadmaps" class="btn btn-primary">Explore Roadmaps</a>
+                <a href="#skills" class="btn btn-outline">Assess Your Skills</a>
+            </div>
+        </section>
+
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search for roadmaps, skills, or resources...">
+        </div>
+
+        <section class="stat-cards">
+            <div class="stat-card">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Career Roadmaps</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">Curated Resources</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Community Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Free Access</div>
+            </div>
+        </section>
+
+        <section id="roadmaps">
+            <h2 class="section-title">Career Roadmaps</h2>
+            <p>Follow structured roadmaps to advance your career in various fields. Each roadmap provides a step-by-step guide with resources and milestones.</p>
+            
+            <div class="grid-container" id="roadmaps-grid">
+                <div class="grid-item" data-category="tech">
+                    <h3>Software Development</h3>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                    <p>Master the art of creating software applications with this comprehensive roadmap.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 1: Foundations</div>
+                            <div class="timeline-content">
+                                <p>Learn programming basics, data structures, and algorithms.</p>
+                                <span class="challenge-tag basic">Basic</span>
+                                <a href="#" class="resource-link" data-modal="software-dev-1">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 2: Specialization</div>
+                            <div class="timeline-content">
+                                <p>Choose your path: Web, Mobile, Backend, or Systems development.</p>
+                                <span class="challenge-tag intermediate">Intermediate</span>
+                                <a href="#" class="resource-link" data-modal="software-dev-2">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 3: Advanced Skills</div>
+                            <div class="timeline-content">
+                                <p>Master design patterns, architecture, and best practices.</p>
+                                <span class="challenge-tag advanced">Advanced</span>
+                                <a href="#" class="resource-link" data-modal="software-dev-3">View Resources →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item" data-category="business">
+                    <h3>Data Science</h3>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                    <p>Transform raw data into valuable insights with this structured learning path.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 1: Basics</div>
+                            <div class="timeline-content">
+                                <p>Statistics, programming, and data wrangling skills.</p>
+                                <span class="challenge-tag basic">Basic</span>
+                                <a href="#" class="resource-link" data-modal="data-science-1">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 2: Analysis & Visualization</div>
+                            <div class="timeline-content">
+                                <p>Data analysis techniques and visualization tools.</p>
+                                <span class="challenge-tag intermediate">Intermediate</span>
+                                <a href="#" class="resource-link" data-modal="data-science-2">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 3: Machine Learning</div>
+                            <div class="timeline-content">
+                                <p>Build predictive models and deploy machine learning solutions.</p>
+                                <span class="challenge-tag advanced">Advanced</span>
+                                <a href="#" class="resource-link" data-modal="data-science-3">View Resources →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item" data-category="design">
+                    <h3>UX/UI Design</h3>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                    <p>Create delightful digital experiences with this comprehensive design roadmap.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 1: Design Fundamentals</div>
+                            <div class="timeline-content">
+                                <p>Color theory, typography, layout principles, and user psychology.</p>
+                                <span class="challenge-tag basic">Basic</span>
+                                <a href="#" class="resource-link" data-modal="ux-design-1">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 2: UI & Interaction Design</div>
+                            <div class="timeline-content">
+                                <p>Creating interfaces, wireframes, and prototypes.</p>
+                                <span class="challenge-tag intermediate">Intermediate</span>
+                                <a href="#" class="resource-link" data-modal="ux-design-2">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 3: Research & Testing</div>
+                            <div class="timeline-content">
+                                <p>User research methods, usability testing, and design systems.</p>
+                                <span class="challenge-tag advanced">Advanced</span>
+                                <a href="#" class="resource-link" data-modal="ux-design-3">View Resources →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item" data-category="tech">
+                    <h3>DevOps Engineer</h3>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                    <p>Bridge the gap between development and operations with automated processes.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 1: Systems & Networking</div>
+                            <div class="timeline-content">
+                                <p>Operating systems, networking, and cloud fundamentals.</p>
+                                <span class="challenge-tag basic">Basic</span>
+                                <a href="#" class="resource-link" data-modal="devops-1">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 2: Containerization & CI/CD</div>
+                            <div class="timeline-content">
+                                <p>Docker, Kubernetes, and continuous integration pipelines.</p>
+                                <span class="challenge-tag intermediate">Intermediate</span>
+                                <a href="#" class="resource-link" data-modal="devops-2">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 3: Infrastructure as Code</div>
+                            <div class="timeline-content">
+                                <p>Terraform, Ansible, and automated infrastructure management.</p>
+                                <span class="challenge-tag advanced">Advanced</span>
+                                <a href="#" class="resource-link" data-modal="devops-3">View Resources →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item" data-category="business">
+                    <h3>Product Management</h3>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                    <p>Guide product development from ideation to market success.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 1: Product Fundamentals</div>
+                            <div class="timeline-content">
+                                <p>Market research, product life cycle, and user-centered design.</p>
+                                <span class="challenge-tag basic">Basic</span>
+                                <a href="#" class="resource-link" data-modal="product-mgmt-1">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 2: Planning & Execution</div>
+                            <div class="timeline-content">
+                                <p>Roadmapping, agile methodologies, and feature prioritization.</p>
+                                <span class="challenge-tag intermediate">Intermediate</span>
+                                <a href="#" class="resource-link" data-modal="product-mgmt-2">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 3: Growth & Analytics</div>
+                            <div class="timeline-content">
+                                <p>Metrics analysis, A/B testing, and data-driven decision making.</p>
+                                <span class="challenge-tag advanced">Advanced</span>
+                                <a href="#" class="resource-link" data-modal="product-mgmt-3">View Resources →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-item" data-category="marketing">
+                    <h3>Digital Marketing</h3>
+                    <div class="progress-indicator">
+                        <div class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                    <p>Master the art and science of promoting brands and products online.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 1: Marketing Foundations</div>
+                            <div class="timeline-content">
+                                <p>Marketing principles, customer journey, and brand positioning.</p>
+                                <span class="challenge-tag basic">Basic</span>
+                                <a href="#" class="resource-link" data-modal="digital-marketing-1">View Resources →</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">Step 3: Growth & Analytics</div>
+                            <div class="timeline-content">
+                                <p>Metrics analysis, A/B testing, and data-driven decision making.</p>
+                                <span class="challenge-tag advanced">Advanced</span>
+                                <a href="#" class="resource-link" data-modal="product-mgmt-3">View Resources →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+    
