@@ -16,7 +16,7 @@ const careerData = {
                     level: "basic",
                     description: "Learn programming basics, data structures, and algorithms.",
                     resources: [
-                        { title: "Introduction to Computer Science", type: "course", url: "#", description: "A comprehensive introduction to CS concepts and programming" },
+                        { title: "Introduction to Computer Science", type: "course", url: "https://www.youtube.com/watch?v=k6U-i4gXkLM", description: "A comprehensive introduction to CS concepts and programming" },
                         { title: "Data Structures and Algorithms", type: "book", url: "#", description: "Essential guide to data structures and algorithms" },
                         { title: "Git & GitHub Crash Course", type: "video", url: "#", description: "Learn version control basics for software development" }
                     ],
